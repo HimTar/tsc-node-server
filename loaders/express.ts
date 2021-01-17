@@ -30,7 +30,7 @@ const expressLoader = (app: express.Application) => {
     makeHttpResponse({
       res,
       status: 404,
-      body: { message: "Endpoint Not Allowed !!!" },
+      body: { message: "Endpoint Does Not Exist !!!" },
     });
   });
 };

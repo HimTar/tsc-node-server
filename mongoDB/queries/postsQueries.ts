@@ -1,6 +1,7 @@
 import postSchema from "../schemas/postSchema";
+import { PostInterface } from "../../interfaces/postInterface";
 
-async function add(post: {}) {
+async function add(post: PostInterface) {
   try {
     const newPost = new postSchema(post);
 
@@ -10,8 +11,6 @@ async function add(post: {}) {
       success: true,
     };
   } catch (err) {
-    console.log("Error from add \n", err);
-
     return {
       success: false,
       error: "Error querying the database",
@@ -28,8 +27,6 @@ async function find() {
       data,
     };
   } catch (err) {
-    console.log("Error from find \n", err);
-
     return {
       success: false,
       error: "Error querying the database",
@@ -46,7 +43,6 @@ async function findByTitle(title: String) {
       data,
     };
   } catch (err) {
-    console.log("Error from find by title \n", err);
     return {
       success: false,
       error: "Error querying the database",
