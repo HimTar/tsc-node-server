@@ -1,7 +1,7 @@
 import queries from "../../mongoDB/queries/postsQueries";
 import { PostInterface } from "../../interfaces/postInterface";
 
-export default async (post: PostInterface, isEdit?: boolean = false) => {
+export default async (post: PostInterface, isEdit = false) => {
   try {
     if (!post.title) {
       return {
@@ -28,7 +28,13 @@ export default async (post: PostInterface, isEdit?: boolean = false) => {
     }
 
     if (!isEdit) {
-      await checkUnique(post);
+      const response = await checkUnique(post);
+      return response;
+    } else {
+      return {
+        success: true,
+        isValid: true,
+      };
     }
   } catch (err) {
     return {
