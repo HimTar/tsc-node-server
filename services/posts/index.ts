@@ -1,7 +1,7 @@
 import queries from "../../mongoDB/queries/postsQueries";
 import { PostInterface } from "../../interfaces/postInterface";
 
-export default async (post: PostInterface) => {
+export default async (post: PostInterface, isEdit?: boolean = false) => {
   try {
     if (!post.title) {
       return {
@@ -27,22 +27,8 @@ export default async (post: PostInterface) => {
       };
     }
 
-    const response = await queries.findByTitle(post.title);
-
-    if (response.success) {
-      if (response.data)
-        return {
-          success: true,
-          isValid: false,
-          message: `Another post already exists with title "${post.title}"`,
-        };
-
-      return {
-        success: true,
-        isValid: true,
-      };
-    } else {
-      throw new Error();
+    if (!isEdit) {
+      await checkUnique(post);
     }
   } catch (err) {
     return {
@@ -50,5 +36,25 @@ export default async (post: PostInterface) => {
       isValid: false,
       message: "Error querying the database !!!",
     };
+  }
+};
+
+const checkUnique = async (post: PostInterface) => {
+  const response = await queries.findByTitle(post.title);
+
+  if (response.success) {
+    if (response.data)
+      return {
+        success: true,
+        isValid: false,
+        message: `Another post already exists with title "${post.title}"`,
+      };
+
+    return {
+      success: true,
+      isValid: true,
+    };
+  } else {
+    throw new Error();
   }
 };
