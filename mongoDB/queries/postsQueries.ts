@@ -36,7 +36,9 @@ async function find() {
 
 async function findByTitle(title: String) {
   try {
-    const data = await postSchema.findOne({ title });
+    const data = await postSchema.findOne({
+      title: { $regex: title, $options: "i" },
+    });
 
     return {
       success: true,

@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import { celebrate, Joi, errors } from "celebrate";
+import sanitizeHtml from "sanitize-html";
 
 import validate from "../../services/posts";
 import queries from "../../mongoDB/queries/postsQueries";
@@ -57,7 +58,27 @@ export default async (app: Router) => {
       }),
     }),
     async (req: Request, res: Response) => {
-      const post = req.body;
+      let post = req.body;
+
+      post.content = sanitizeHtml(post.content, {
+        allowedTags: [
+          "b",
+          "i",
+          "h1",
+          "h2",
+          "br",
+          "strong",
+          "a",
+          "p",
+          "ol",
+          "li",
+          "ul",
+          "table",
+        ],
+        allowedAttributes: {
+          a: ["href"],
+        },
+      });
 
       const validation = await validate(post);
 
@@ -74,6 +95,8 @@ export default async (app: Router) => {
           body: { message: validation.message },
         });
       } else {
+        // The Post is validated and now the data can be saved in database.
+
         const savingPost = await queries.add(post);
 
         if (savingPost.success)
