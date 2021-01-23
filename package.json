@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "heroku-postbuild": "npm run build",
-    "start": "node index.ts",
+    "start": "node index.js",
     "dev": "nodemon index.ts"
   },
   "keywords": [
