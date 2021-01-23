@@ -52,8 +52,42 @@ async function findByTitle(title: String) {
   }
 }
 
+async function findAndUpdate(id: String, post: PostInterface) {
+  try {
+    const data = await postSchema.findByIdAndUpdate(id, post);
+
+    return {
+      success: true,
+      data,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      error: "Error querying the database",
+    };
+  }
+}
+
+async function findAndDelete(id: String) {
+  try {
+    const data = await postSchema.findByIdAndDelete(id);
+
+    return {
+      success: true,
+      data,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      error: "Error querying the database",
+    };
+  }
+}
+
 export default Object.freeze({
   add,
   find,
   findByTitle,
+  findAndUpdate,
+  findAndDelete,
 });

@@ -9,6 +9,7 @@ export default async (): Promise<Boolean> => {
       useNewUrlParser: true,
       useCreateIndex: true,
       useUnifiedTopology: true,
+      useFindAndModify: true,
     });
 
     return true;

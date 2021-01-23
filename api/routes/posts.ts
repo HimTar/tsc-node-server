@@ -103,7 +103,7 @@ export default async (app: Router) => {
     "/edit-post",
     celebrate({
       body: Joi.object({
-        postId: Joi.string().required(),
+        id: Joi.string().required(),
         data: {
           title: Joi.string().required(),
           content: Joi.string().required(),
@@ -114,9 +114,9 @@ export default async (app: Router) => {
     async (req: Request, res: Response) => {
       let post = req.body;
 
-      post.content = sanitizeHtml(post.data.content);
+      post.data.content = sanitizeHtml(post.data.content);
 
-      const validation = await validate(post);
+      const validation = await validate(post.data, true);
 
       if (!validation.success) {
         makeHttpResponse({
@@ -133,13 +133,13 @@ export default async (app: Router) => {
       } else {
         // The Post is validated and now the data can be saved in database.
 
-        const savingPost = await queries.add(post);
+        const savingPost = await queries.findAndUpdate(post.id, post.data);
 
         if (savingPost.success)
           makeHttpResponse({
             res,
-            status: 201,
-            body: { message: "Post Successfully added" },
+            status: 200,
+            body: { message: "Post Successfully Updated" },
           });
         else
           makeHttpResponse({
@@ -150,5 +150,34 @@ export default async (app: Router) => {
       }
     }
   );
+
+  // Route Handling request for deleting post
+  router.post(
+    "/delete-post",
+    celebrate({
+      body: Joi.object({
+        id: Joi.string().required(),
+      }),
+    }),
+    async (req, res) => {
+      const id = req.body.id;
+
+      const deletePost = await queries.findAndDelete(id);
+
+      if (deletePost.success)
+        makeHttpResponse({
+          res,
+          status: 200,
+          body: { message: "Post Successfully Deleted" },
+        });
+      else
+        makeHttpResponse({
+          res,
+          status: 500,
+          body: { message: deletePost.error },
+        });
+    }
+  );
+
   app.use(errors());
 };
