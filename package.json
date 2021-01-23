@@ -4,9 +4,10 @@
   "description": "Node Js Server ",
   "main": "index.ts",
   "scripts": {
+    "build": "tsc",
+    "heroku-postbuild": "npm run build",
     "start": "node index.ts",
-    "dev": "nodemon index.ts",
-    "build": "tsc -p ."
+    "dev": "nodemon index.ts"
   },
   "keywords": [
     "node",
