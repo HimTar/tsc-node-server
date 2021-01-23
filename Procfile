@@ -1,1 +1,1 @@
-web: yarn index.ts
+web: yarn index.js
