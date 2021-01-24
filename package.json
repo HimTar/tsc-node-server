@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "node ./build/index.js",
-    "build": "tsc && yarn start",
+    "build": "tsc",
     "dev": "nodemon index.ts"
   },
   "keywords": [
