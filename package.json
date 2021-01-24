@@ -4,8 +4,8 @@
   "description": "Node Js Server ",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node index.ts",
-    "postinstall": "tsc",
+    "start": "node ./build/index.js",
+    "build": "tsc && yarn start",
     "dev": "nodemon index.ts"
   },
   "keywords": [
