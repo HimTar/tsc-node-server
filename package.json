@@ -4,7 +4,7 @@
   "description": "Node Js Server ",
   "main": "index.ts",
   "scripts": {
-    "start": "node ./build/index.js",
+    "start": "ts-node index.ts",
     "postinstall": "tsc",
     "dev": "nodemon index.ts"
   },
