@@ -56,9 +56,14 @@ async function findAndUpdate(id: String, post: PostInterface) {
   try {
     const data = await postSchema.findByIdAndUpdate(id, post);
 
+    if (!data)
+      return {
+        success: false,
+        error: "Invalid Post ID !!",
+      };
+
     return {
       success: true,
-      data,
     };
   } catch (err) {
     return {
@@ -72,9 +77,14 @@ async function findAndDelete(id: String) {
   try {
     const data = await postSchema.findByIdAndDelete(id);
 
+    if (!data)
+      return {
+        success: false,
+        error: "Invalid Post ID !!",
+      };
+
     return {
       success: true,
-      data,
     };
   } catch (err) {
     return {

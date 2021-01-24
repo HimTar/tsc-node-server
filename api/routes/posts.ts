@@ -10,6 +10,7 @@ import makeHttpResponse from "../../helpers/makeHttpResponse";
 const router = Router();
 
 export default async (app: Router) => {
+  // All posts related routes starts with /posts
   app.use("/posts", router);
 
   // Route Handling request for fetching all posts

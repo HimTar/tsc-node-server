@@ -4,7 +4,7 @@ export default ({
   res,
   status,
   body,
-  headers = {},
+  headers = { "Content-Type": "application/json" },
 }: {
   res: Response;
   status: number;
