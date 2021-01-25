@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 import config from "../config";
 
 export default async (): Promise<Boolean> => {
-  const url = process.env.PROD_MONGO_URI || "";
+  const url =
+    "mongodb+srv://Himanshu:abcd@1234@cluster0.kdtwe.mongodb.net/blog?retryWrites=true&w=majority";
 
   try {
     await mongoose.connect(url, {
