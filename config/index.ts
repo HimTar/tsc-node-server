@@ -12,9 +12,9 @@ if (envFound.error) {
 
 export default {
   databaseURL:
-    process.env.NODE_ENV === "development"
-      ? process.env.DEV_MONGO_URI
-      : process.env.PROD_MONGO_URI,
+    // process.env.NODE_ENV === "development"
+    //   ? process.env.DEV_MONGO_URI:
+    process.env.PROD_MONGO_URI,
 
   // Auth0 Environment Variables
   issuerBaseURL: process.env.ISSUER_BASE_URL,
