@@ -1,4 +1,5 @@
 import { Application, Request, Response, NextFunction } from "express";
+import dotenv from "dotenv";
 import expressLoader from "./express";
 import makeConnection from "../mongoDB";
 import logger from "./logger";
@@ -6,6 +7,9 @@ import logger from "./logger";
 export default async ({ expressApp }: { expressApp: Application }) => {
   expressLoader(expressApp);
   logger.info("Express loaded");
+
+  dotenv.config();
+  logger.info("Env variables loaded");
 
   expressApp.use(
     (err: Error, req: Request, res: Response, next: NextFunction) => {

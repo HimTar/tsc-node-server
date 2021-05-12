@@ -1,5 +1,6 @@
 import express from "express";
 import posts from "./routes/posts";
+import contact from "./routes/contact";
 import LoggerMiddleware from "./middlewares/loggerMiddleware";
 
 export default () => {
@@ -8,6 +9,7 @@ export default () => {
   app.use(LoggerMiddleware);
 
   posts(app);
+  contact(app);
 
   return app;
 };
